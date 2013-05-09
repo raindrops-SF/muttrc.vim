@@ -2,7 +2,8 @@
 " Language:	Mutt setup files
 " Original:	Preben 'Peppe' Guldberg <peppe-vim@wielders.org>
 " Maintainer:	Kyle Wheeler <kyle-muttrc.vim@memoryhole.net>
-" Last Change:	2 Feb 2012
+" Fork:		DN Beverly <rainlists@gmail.com>
+" Last Change:	9 May 2013
 
 " This file covers mutt version 1.5.21 (and most of the mercurial tip)
 " Included are also a few features from 1.4.2.1
@@ -143,6 +144,7 @@ syn keyword muttrcVarBool	skipwhite contained strict_mime strict_threads suspend
 syn keyword muttrcVarBool	skipwhite contained thread_received tilde uncollapse_jump use_8bitmime nextgroup=muttrcSetBoolAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained use_domain use_envelope_from use_from use_idn use_ipv6 nextgroup=muttrcSetBoolAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained user_agent wait_key weed wrap_search write_bcc nextgroup=muttrcSetBoolAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+syn keyword muttrcVarBool	skipwhite contained xterm_set_titles mail_check_recent nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 
 syn keyword muttrcVarBool	skipwhite contained noallow_8bit noallow_ansi noarrow_cursor noascii_chars noaskbcc nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained noaskcc noattach_split noauto_tag noautoedit nobeep nobeep_new nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
@@ -179,6 +181,7 @@ syn keyword muttrcVarBool	skipwhite contained nostrict_threads nosuspend notext_
 syn keyword muttrcVarBool	skipwhite contained nothread_received notilde nouncollapse_jump nouse_8bitmime nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained nouse_domain nouse_envelope_from nouse_from nouse_idn nouse_ipv6 nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained nouser_agent nowait_key noweed nowrap_search nowrite_bcc nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+syn keyword muttrcVarBool	skipwhite contained noxterm_set_titles nomail_check_recent nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 
 syn keyword muttrcVarBool	skipwhite contained invallow_8bit invallow_ansi invarrow_cursor invascii_chars invaskbcc nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained invaskcc invattach_split invauto_tag invautoedit invbeep invbeep_new nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
@@ -215,6 +218,7 @@ syn keyword muttrcVarBool	skipwhite contained invstrict_threads invsuspend invte
 syn keyword muttrcVarBool	skipwhite contained invthread_received invtilde invuncollapse_jump invuse_8bitmime nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained invuse_domain invuse_envelope_from invuse_from invuse_idn invuse_ipv6 nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarBool	skipwhite contained invuser_agent invwait_key invweed invwrap_search invwrite_bcc nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+syn keyword muttrcVarBool	skipwhite contained invxterm_set_titles invmail_check_recent nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 if use_mutt_sidebar == 1
     syn keyword muttrcVarBool skipwhite contained sidebar_visible sidebar_sort nextgroup=muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 endif
@@ -349,7 +353,7 @@ syn keyword muttrcVarStr	contained skipwhite query_format nextgroup=muttrcVarEqu
 syn match muttrcVarEqualsQueryFmt contained skipwhite "=" nextgroup=muttrcQueryFormatStr
 syn keyword muttrcVarStr	contained skipwhite pgp_decode_command pgp_verify_command pgp_decrypt_command pgp_clearsign_command pgp_sign_command pgp_encrypt_sign_command pgp_encrypt_only_command pgp_import_command pgp_export_command pgp_verify_key_command pgp_list_secring_command pgp_list_pubring_command nextgroup=muttrcVarEqualsPGPCmdFmt
 syn match muttrcVarEqualsPGPCmdFmt contained skipwhite "=" nextgroup=muttrcPGPCmdFormatStr
-syn keyword muttrcVarStr	contained skipwhite status_format nextgroup=muttrcVarEqualsStatusFmt
+syn keyword muttrcVarStr	contained skipwhite status_format xterm_title xterm_icon nextgroup=muttrcVarEqualsStatusFmt
 syn match muttrcVarEqualsStatusFmt contained skipwhite "=" nextgroup=muttrcStatusFormatStr
 syn keyword muttrcVarStr	contained skipwhite pgp_getkeys_command nextgroup=muttrcVarEqualsPGPGetKeysFmt
 syn match muttrcVarEqualsPGPGetKeysFmt contained skipwhite "=" nextgroup=muttrcPGPGetKeysFormatStr
@@ -370,11 +374,10 @@ syn keyword muttrcVarStr	contained skipwhite header_cache header_cache_compress 
 syn keyword muttrcVarStr	contained skipwhite history_file hostname imap_authenticators nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite imap_delim_chars imap_headers imap_idle imap_login imap_pass nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite imap_user indent_str indent_string ispell locale mailcap_path nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
-syn keyword muttrcVarStr	contained skipwhite mask mbox mbox_type message_cachedir mh_seq_flagged mh_seq_replied nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+syn keyword muttrcVarStr	contained skipwhite mask mbox mbox_type message_cachedir mh_seq_flagged mh_seq_replied trash nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite mh_seq_unseen mixmaster msg_format pager nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite pgp_good_sign  nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
-syn keyword muttrcVarStr	contained skipwhite pgp_mime_signature_filename nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
-syn keyword muttrcVarStr	contained skipwhite pgp_mime_signature_description pgp_sign_as nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+syn keyword muttrcVarStr	contained skipwhite pgp_mime_signature_filename pgp_mime_signature_description pgp_sign_as nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite pgp_sort_keys nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite pipe_sep pop_authenticators pop_host pop_pass pop_user post_indent_str nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 syn keyword muttrcVarStr	contained skipwhite post_indent_string postponed preconnect print_cmd print_command nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
@@ -394,6 +397,8 @@ endif
 syn keyword muttrcVarBool	contained skipwhite imap_force_ssl noimap_force_ssl invimap_force_ssl nextgroup=muttrcSetBoolAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
 "syn keyword muttrcVarQuad	contained pgp_create_traditional nopgp_create_traditional invpgp_create_traditional
 syn keyword muttrcVarStr	contained skipwhite alternates nextgroup=muttrcSetStrAssignment,muttrcVPrefix,muttrcVarBool,muttrcVarQuad,muttrcVarNum,muttrcVarStr
+
+
 
 syn keyword muttrcMenu		contained alias attach browser compose editor index pager postpone pgp mix query generic
 syn match muttrcMenuList "\S\+" contained contains=muttrcMenu
